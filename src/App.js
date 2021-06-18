@@ -1,8 +1,22 @@
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useRef, Suspense } from 'react'
+import { Canvas, useLoader } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import Box from './components/Box.js'
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
+
 import './App.css'
+
+/* eslint-disable react/prop-types */
+function Model ({ url }) {
+  const geom = useLoader(STLLoader, url)
+  const ref = useRef()
+
+  return (
+    <mesh ref={ref} position={[-100, -100, 0]}>
+      <primitive object={geom} attach='geometry' />
+      <meshStandardMaterial color='grey' />
+    </mesh>
+  )
+}
 
 function App () {
   return (
@@ -17,10 +31,9 @@ function App () {
 
         <OrbitControls />
 
-        <Box position={[1, 1, 0]} />
-        <Box position={[-1, 1, 0]} />
-        <Box position={[-1, -1, 0]} />
-        <Box position={[1, -1, 0]} />
+        <Suspense fallback={null}>
+          <Model url='./models/hexlamp.stl' />
+        </Suspense>
       </Canvas>
     </div>
   )
