@@ -1,4 +1,5 @@
 import './App.css'
+import Dot from './components/Dot.js'
 import Model from './components/Model.js'
 import React, { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
@@ -17,10 +18,6 @@ function App () {
 
         <MapControls />
 
-        <Suspense fallback={null}>
-          <Model url='./models/hexlamp.stl' />
-        </Suspense>
-
         <Text
           color='white'
           anchorX='center'
@@ -29,7 +26,15 @@ function App () {
           position={[0, 30, 0]}
         >
           Aruna
+
         </Text>
+        {[...Array(500)].map((x, i) =>
+          <Dot key={i} position={[i * 0.2 - 100 / 2, -10, -20]} />
+        )}
+
+        <Suspense fallback={null}>
+          <Model url='./models/hexlamp.stl' />
+        </Suspense>
       </Canvas>
     </div>
   )
