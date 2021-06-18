@@ -1,29 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useRef, Suspense } from 'react'
-import { Canvas, useLoader, useFrame } from '@react-three/fiber'
+import React, { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { MapControls, Text } from '@react-three/drei'
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
+import Model from './components/model.js'
 
 import './App.css'
-
-function Model ({ url }, props) {
-  const mesh = useRef()
-  const geom = useLoader(STLLoader, url)
-
-  // useFrame(() => (mesh.current.rotation.x += 0.01))
-
-  return (
-    <mesh
-      ref={mesh}
-      position={[-120, -110, 0]}
-      {...props}
-    >
-      <primitive object={geom} attach='geometry' />
-      <meshStandardMaterial color='grey' />
-    </mesh>
-  )
-}
 
 function App () {
   return (
