@@ -7,8 +7,6 @@ function Model ({ url }, props) {
   const mesh = useRef()
   const geom = useLoader(STLLoader, url)
 
-  // useFrame(() => (mesh.current.rotation.x += 0.01))
-
   return (
     <mesh
       ref={mesh}
