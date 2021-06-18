@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
+import React, { useRef } from 'react'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import { useLoader } from '@react-three/fiber'
-import React, { useRef } from 'react'
 
 function Model ({ url }, props) {
   const mesh = useRef()
