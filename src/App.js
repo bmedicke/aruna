@@ -1,9 +1,8 @@
+import './App.css'
+import Model from './components/model.js'
 import React, { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { MapControls, Text } from '@react-three/drei'
-import Model from './components/model.js'
-
-import './App.css'
 
 function App () {
   return (
