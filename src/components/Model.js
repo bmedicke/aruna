@@ -6,13 +6,14 @@ import { useLoader } from '@react-three/fiber'
 function Model ({ url }, props) {
   const mesh = useRef()
   const geom = useLoader(STLLoader, url)
+  geom.center()
   const [hovered, setHover] = useState(false)
 
   return (
     <mesh
       {...props}
       ref={mesh}
-      position={[-120, -110, 0]}
+      position={[0, 0, 0]}
       onPointerOver={(event) => {
         setHover(true)
         console.log(event)
