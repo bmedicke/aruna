@@ -7,8 +7,11 @@ import './App.css'
 function App () {
   return (
     <div className='App'>
-      <Canvas>
         <ambientLight />
+      <Canvas
+        orthographic
+        camera={{ zoom: 200, position: [0, 0, 25] }}
+      >
         <pointLight position={[0, 0, 3]} />
 
         <OrbitControls />
