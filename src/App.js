@@ -23,7 +23,7 @@ function App () {
     <div className='App'>
       <Canvas
         orthographic
-        camera={{ zoom: 200, position: [0, 0, 25] }}
+        camera={{ zoom: 2, position: [0, 0, 100] }}
         style={{ backgroundColor: 'black' }}
       >
         <ambientLight intensity={0.3} />
