@@ -5,7 +5,7 @@ import './Sidebar.scss'
 const Sidebar = () => {
   const [isClosed, setIsClosed] = useState(true)
 
-  let lis = ['1', '2', '3', '4']
+  let lis = ['Home', 'Editor', 'My Circuits', 'Settings', 'Help']
 
   let clickHandler = () => {
     setIsClosed(!isClosed)
