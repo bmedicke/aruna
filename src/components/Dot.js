@@ -2,7 +2,7 @@
 import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-function Dot (props) {
+function Dot(props) {
   const mesh = useRef()
 
   useFrame(() => {
@@ -12,13 +12,9 @@ function Dot (props) {
   })
 
   return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={1}
-    >
+    <mesh {...props} ref={mesh} scale={1}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color='white' />
+      <meshStandardMaterial color="white" />
     </mesh>
   )
 }

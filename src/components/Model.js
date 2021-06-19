@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import { useLoader, useFrame } from '@react-three/fiber'
 
-function Model ({ url }, props) {
+function Model({ url }, props) {
   const mesh = useRef()
   const geom = useLoader(STLLoader, url)
   geom.center()
@@ -34,7 +34,7 @@ function Model ({ url }, props) {
         console.log(event)
       }}
     >
-      <primitive object={geom} attach='geometry' />
+      <primitive object={geom} attach="geometry" />
       <meshStandardMaterial color={hovered ? 'red' : 'grey'} />
     </mesh>
   )
