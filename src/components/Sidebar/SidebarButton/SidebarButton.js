@@ -2,16 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './SidebarButton.scss'
 
-const SidebarButton = ({ text, click }) => {
+const SidebarButton = ({ li, click }) => {
   return (
     <div className="sidebar-button" onClick={click}>
-      {text}
+      <span className="sidebar-button__logo">
+        <li.icon />
+      </span>
+      {li.text}
     </div>
   )
 }
 
 SidebarButton.propTypes = {
-  text: PropTypes.string,
+  li: PropTypes.node,
   click: PropTypes.func,
 }
 
