@@ -1,0 +1,10 @@
+.sidebar-button {
+  padding: 1rem;
+  color: #ccc;
+  transition: all 0.3s cubic-bezier(0.39, 0.58, 0.57, 1);
+
+  &:hover {
+    background: #ccc;
+    color: #333333b0;
+  }
+}
