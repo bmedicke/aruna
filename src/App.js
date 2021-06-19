@@ -6,7 +6,7 @@ import { Canvas } from '@react-three/fiber'
 import { MapControls, Text } from '@react-three/drei'
 import Layout from './HOC/Layout'
 
-function App () {
+const App = () => {
   return (
     <Layout>
       <div className="App">
