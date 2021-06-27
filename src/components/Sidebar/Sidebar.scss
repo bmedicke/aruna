@@ -17,11 +17,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  flex-flow: column wrap;
+  /* display: flex; */
+  /* flex-flow: column wrap; */
   height: 100%;
   z-index: 100;
   overflow-x: hidden;
+  overflow-y: hidden;
   transition: all 0.3s ease-in-out;
 
   .sidebar {
