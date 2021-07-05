@@ -1,6 +1,6 @@
 import './App.css'
-import Dot from './components/Dot.js'
-import Model from './components/Model.js'
+import Dot from './components/Canvas/Dot.js'
+import Model from './components/Canvas/Model.js'
 import React, { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { MapControls, Text } from '@react-three/drei'
