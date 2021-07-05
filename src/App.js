@@ -11,7 +11,7 @@ const App = () => {
   return (
     <Router>
       <Layout>
-        <div className="App">
+        <div className='App'>
           <Canvas
             orthographic
             camera={{ zoom: 10, position: [0, 0, 200] }}
@@ -23,9 +23,9 @@ const App = () => {
             <MapControls />
 
             <Text
-              color="white"
-              anchorX="center"
-              anchorY="middle"
+              color='white'
+              anchorX='center'
+              anchorY='middle'
               fontSize={10}
               position={[0, 30, 0]}
             >
@@ -37,7 +37,7 @@ const App = () => {
             ))}
 
             <Suspense fallback={null}>
-              <Model url="./models/hexlamp.stl" />
+              <Model url='./models/hexlamp.stl' />
             </Suspense>
           </Canvas>
         </div>
