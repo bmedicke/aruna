@@ -102,7 +102,7 @@ def main():
     s.listen()
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     # keep running to work around uncatchable exceptions of supabase:
     while True:
         main()
