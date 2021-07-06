@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import board
-import datetime
-import json
 import neopixel
 import realtime_py
 
