@@ -40,6 +40,12 @@ def on_change(payload):
         print(f'table "{table}" not handled')
 
 
+def on_delete(payload):
+    id = int(payload["old_record"]["id"])
+    print(f"pixel {id} deleted, setting to (0, 0, 0)")
+    pixels[id] = (0, 0, 0)
+
+
 URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
 s = realtime_py.connection.Socket(URL)
 s.connect()
@@ -47,4 +53,5 @@ s.connect()
 channel = s.set_channel("realtime:*")
 channel.join().on("UPDATE", on_change)
 channel.join().on("INSERT", on_change)
+channel.join().on("DELETE", on_delete)
 s.listen()
