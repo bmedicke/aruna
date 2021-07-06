@@ -17,7 +17,7 @@ def update_pixel(id, color):
     cur.execute(sql)
     conn.commit()
 
-for i in range(300):
+for i in range(int(input('how many leds to control? '))):
     if i % 3 == 0:
         update_pixel(i, (20, 0, 0))
     elif i % 3 == 1:
