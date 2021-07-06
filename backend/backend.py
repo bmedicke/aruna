@@ -41,9 +41,12 @@ def on_change(payload):
 
 
 def on_delete(payload):
-    id = int(payload["old_record"]["id"])
-    print(f"pixel {id} deleted, setting to (0, 0, 0)")
-    pixels[id] = (0, 0, 0)
+    table = payload["table"]
+
+    if table == "pixels":
+        id = int(payload["old_record"]["id"])
+        print(f"pixel {id} deleted, setting to (0, 0, 0)")
+        pixels[id] = (0, 0, 0)
 
 
 URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
