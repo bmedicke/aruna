@@ -59,33 +59,27 @@ def restore_last_state():
 
 
 def on_change(payload):
-    table = payload["table"]
+    pixel = payload["record"]
+    id = int(pixel["id"])
+    colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
 
-    if table == "pixels":
-        pixel = payload["record"]
-        id = int(pixel["id"])
-        colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
+    if not check_id(id):
+        return
 
-        if not check_id(id):
-            return
+    if not check_colors(colors):
+        return
 
-        if not check_colors(colors):
-            return
-
-        pixels[id] = colors
-        print(f"pixel {id} changed to: {colors}")
+    pixels[id] = colors
+    print(f"pixel {id} changed to: {colors}")
 
 
 def on_delete(payload):
-    table = payload["table"]
+    id = int(payload["old_record"]["id"])
 
-    if table == "pixels":
-        id = int(payload["old_record"]["id"])
+    print(f"pixel {id} deleted, setting to (0, 0, 0)")
 
-        print(f"pixel {id} deleted, setting to (0, 0, 0)")
-
-        if check_id(id):
-            pixels[id] = (0, 0, 0)
+    if check_id(id):
+        pixels[id] = (0, 0, 0)
 
 
 def main():
@@ -95,7 +89,7 @@ def main():
     s = realtime_py.connection.Socket(URL)
     s.connect()
 
-    channel = s.set_channel("realtime:*")
+    channel = s.set_channel("realtime:public:pixels")
     channel.join().on("UPDATE", on_change)
     channel.join().on("INSERT", on_change)
     channel.join().on("DELETE", on_delete)
@@ -106,3 +100,4 @@ if __name__ == "__main__":
     # keep running to work around uncatchable exceptions of supabase:
     while True:
         main()
+        print("error: connection lost, restarting")
