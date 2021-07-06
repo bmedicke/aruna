@@ -48,8 +48,6 @@ def on_change(payload):
 
         pixels[id] = colors
         print(f"pixel {id} changed to: {colors}")
-    else:
-        print(f'table "{table}" not handled')
 
 
 def on_delete(payload):
