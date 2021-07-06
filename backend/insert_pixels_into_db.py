@@ -4,7 +4,7 @@ import psycopg2
 
 
 def fetch_pixels(cursor):
-    cur.execute("select * from pixels")
+    cur.execute("select * from pixels order by id")
     return cur.fetchall()
 
 
