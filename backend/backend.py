@@ -34,12 +34,17 @@ def check_colors(colors):
 
 
 def restore_last_state():
-    conn = psycopg2.connect(
-        host=server,
-        database="postgres",
-        user="postgres",
-        password="postgres",
-    )
+    try:
+        conn = psycopg2.connect(
+            host=server,
+            database="postgres",
+            user="postgres",
+            password="postgres",
+        )
+    except psycopg2.OperationalError:
+        print("error: connection failed. skipping restore")
+        return
+
     cur = conn.cursor()
 
     sql = "select * from pixels order by id"
