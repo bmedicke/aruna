@@ -13,11 +13,12 @@ def update_pixel(id, color):
     )
     cur = conn.cursor()
 
-    sql = f'update pixels set red={color[0]}, green={color[1]}, blue={color[2]} where id = {id}'
+    sql = f"update pixels set red={color[0]}, green={color[1]}, blue={color[2]} where id = {id}"
     cur.execute(sql)
     conn.commit()
 
-for i in range(int(input('how many leds to control? '))):
+
+for i in range(int(input("how many leds to control? "))):
     if i % 3 == 0:
         update_pixel(i, (20, 0, 0))
     elif i % 3 == 1:
