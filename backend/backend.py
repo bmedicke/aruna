@@ -14,7 +14,7 @@ num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=False)
 
 
-def check_id(id):
+def id_ok(id):
     if not id in range(num_pixels):
         print(
             f"error: pixel {id} out of range (valid range is from 0 to {num_pixels-1})"
@@ -23,7 +23,7 @@ def check_id(id):
     return True
 
 
-def check_colors(colors):
+def colors_ok(colors):
     for color in colors:
         if color not in range(0, 256):
             print(
@@ -56,7 +56,7 @@ def restore_last_state():
         id = pixel[0]
         colors = (pixel[1], pixel[2], pixel[3])
 
-        if check_id(id) and check_colors(colors):
+        if id_ok(id) and colors_ok(colors):
             pixels[id] = colors
 
     pixels.show()
@@ -68,10 +68,10 @@ def on_change(payload):
     id = int(pixel["id"])
     colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
 
-    if not check_id(id):
+    if not id_ok(id):
         return
 
-    if not check_colors(colors):
+    if not colors_ok(colors):
         return
 
     pixels[id] = colors
@@ -83,7 +83,7 @@ def on_delete(payload):
 
     print(f"pixel {id} deleted, setting to (0, 0, 0)")
 
-    if check_id(id):
+    if id_ok(id):
         pixels[id] = (0, 0, 0)
 
 
