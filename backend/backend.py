@@ -25,13 +25,13 @@ def on_update(payload):
         g = int(pixel["green"])
         b = int(pixel["blue"])
 
-        if not id < num_pixels:
-            print(f"error: pixel {id} out of range (max. is {num_pixels-1})")
+        if not id in range(num_pixels):
+            print(f"error: pixel {id} out of range (valid range is from 0 to {num_pixels-1})")
             return
 
         for color in (r, g, b):
             if color not in range(0, 256):
-                print(f"error: wrong color value '{color}', in {(r, g, b)}")
+                print(f"error: wrong color value {color} (valid range is from 0 to 255)")
                 return
 
         pixels[id] = (r, g, b)
