@@ -68,14 +68,9 @@ def on_change(payload):
     id = int(pixel["id"])
     colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
 
-    if not id_ok(id):
-        return
-
-    if not colors_ok(colors):
-        return
-
-    pixels[id] = colors
-    print(f"pixel {id} changed to: {colors}")
+    if id_ok(id) and colors_ok(colors):
+        pixels[id] = colors
+        print(f"pixel {id} changed to: {colors}")
 
 
 def on_delete(payload):
