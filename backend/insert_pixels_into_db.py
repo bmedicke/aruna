@@ -23,6 +23,6 @@ if __name__ == "__main__":
         password="postgres",
     )
     cur = conn.cursor()
-    create_entries(cur, conn)
+    create_entries(cur, conn, int(input("how many leds are you connecting? ")))
     for pixel in fetch_pixels(cur):
         print(pixel)
