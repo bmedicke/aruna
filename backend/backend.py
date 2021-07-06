@@ -13,6 +13,25 @@ num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
 
 
+def check_id(id):
+    if not id in range(num_pixels):
+        print(
+            f"error: pixel {id} out of range (valid range is from 0 to {num_pixels-1})"
+        )
+        return False
+    return True
+
+
+def check_colors(colors):
+    for color in colors:
+        if color not in range(0, 256):
+            print(
+                f"error: wrong color value {color} (valid range is from 0 to 255)"
+            )
+            return False
+    return True
+
+
 def on_change(payload):
     table = payload["table"]
 
@@ -21,18 +40,11 @@ def on_change(payload):
         id = int(pixel["id"])
         colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
 
-        if not id in range(num_pixels):
-            print(
-                f"error: pixel {id} out of range (valid range is from 0 to {num_pixels-1})"
-            )
+        if not check_id(id):
             return
 
-        for color in colors:
-            if color not in range(0, 256):
-                print(
-                    f"error: wrong color value {color} (valid range is from 0 to 255)"
-                )
-                return
+        if not check_colors(colors):
+            return
 
         pixels[id] = colors
         print(f"pixel {id} changed to: {colors}")
@@ -45,8 +57,11 @@ def on_delete(payload):
 
     if table == "pixels":
         id = int(payload["old_record"]["id"])
+
         print(f"pixel {id} deleted, setting to (0, 0, 0)")
-        pixels[id] = (0, 0, 0)
+
+        if check_id(id):
+            pixels[id] = (0, 0, 0)
 
 
 URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
