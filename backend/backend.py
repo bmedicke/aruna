@@ -88,7 +88,7 @@ def on_delete(payload):
             pixels[id] = (0, 0, 0)
 
 
-if __name__ == "__main__":
+def main():
     restore_last_state()
 
     URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
@@ -100,3 +100,9 @@ if __name__ == "__main__":
     channel.join().on("INSERT", on_change)
     channel.join().on("DELETE", on_delete)
     s.listen()
+
+
+if __name__ == "main":
+    # keep running to work around uncatchable exceptions of supabase:
+    while True:
+        main()
