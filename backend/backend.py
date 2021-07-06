@@ -2,6 +2,7 @@
 
 import board
 import neopixel
+import psycopg2
 import realtime_py
 
 server = "192.168.0.114"
@@ -11,6 +12,22 @@ key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYw
 led_pin = board.D18
 num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
+
+
+def startup():
+    conn = psycopg2.connect(
+        host=server,
+        database="postgres",
+        user="postgres",
+        password="postgres",
+    )
+    cur = conn.cursor()
+
+    sql = f"select * from pixels"
+    cur.execute(sql)
+
+    for pixel in cur.fetchall():
+        pixels[pixel[0]] = (pixel[1], pixel[2], pixel[3])
 
 
 def check_id(id):
@@ -62,12 +79,15 @@ def on_delete(payload):
             pixels[id] = (0, 0, 0)
 
 
-URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
-s = realtime_py.connection.Socket(URL)
-s.connect()
+if __name__ == "__main__":
+    startup()
 
-channel = s.set_channel("realtime:*")
-channel.join().on("UPDATE", on_change)
-channel.join().on("INSERT", on_change)
-channel.join().on("DELETE", on_delete)
-s.listen()
+    URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
+    s = realtime_py.connection.Socket(URL)
+    s.connect()
+
+    channel = s.set_channel("realtime:*")
+    channel.join().on("UPDATE", on_change)
+    channel.join().on("INSERT", on_change)
+    channel.join().on("DELETE", on_delete)
+    s.listen()
