@@ -42,7 +42,7 @@ def restore_last_state():
     )
     cur = conn.cursor()
 
-    sql = f"select * from pixels"
+    sql = "select * from pixels order by random()"
     cur.execute(sql)
 
     for pixel in cur.fetchall():
