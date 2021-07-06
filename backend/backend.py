@@ -11,7 +11,7 @@ key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYw
 
 led_pin = board.D18
 num_pixels = 300
-pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
+pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=False)
 
 
 def check_id(id):
@@ -42,8 +42,10 @@ def restore_last_state():
     )
     cur = conn.cursor()
 
-    sql = "select * from pixels order by random()"
+    sql = "select * from pixels order by id"
     cur.execute(sql)
+
+    pixels.auto_write = False
 
     for pixel in cur.fetchall():
         id = pixel[0]
@@ -51,6 +53,9 @@ def restore_last_state():
 
         if check_id(id) and check_colors(colors):
             pixels[id] = colors
+
+    pixels.show()
+    pixels.auto_write = True
 
 
 def on_change(payload):
