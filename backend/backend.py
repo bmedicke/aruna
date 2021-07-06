@@ -13,7 +13,7 @@ num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
 
 
-def on_update(payload):
+def on_change(payload):
     table = payload["table"]
 
     if table == "pixels":
@@ -44,6 +44,7 @@ URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
 s = realtime_py.connection.Socket(URL)
 s.connect()
 
-channel_1 = s.set_channel("realtime:*")
-channel_1.join().on("UPDATE", on_update)
+channel = s.set_channel("realtime:*")
+channel.join().on("UPDATE", on_change)
+channel.join().on("INSERT", on_change)
 s.listen()
