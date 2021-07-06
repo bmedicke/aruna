@@ -14,22 +14,6 @@ num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
 
 
-def startup():
-    conn = psycopg2.connect(
-        host=server,
-        database="postgres",
-        user="postgres",
-        password="postgres",
-    )
-    cur = conn.cursor()
-
-    sql = f"select * from pixels"
-    cur.execute(sql)
-
-    for pixel in cur.fetchall():
-        pixels[pixel[0]] = (pixel[1], pixel[2], pixel[3])
-
-
 def check_id(id):
     if not id in range(num_pixels):
         print(
@@ -47,6 +31,26 @@ def check_colors(colors):
             )
             return False
     return True
+
+
+def restore_last_state():
+    conn = psycopg2.connect(
+        host=server,
+        database="postgres",
+        user="postgres",
+        password="postgres",
+    )
+    cur = conn.cursor()
+
+    sql = f"select * from pixels"
+    cur.execute(sql)
+
+    for pixel in cur.fetchall():
+        id = pixel[0]
+        colors = (pixel[1], pixel[2], pixel[3])
+
+        if check_id(id) and check_colors(colors):
+            pixels[id] = colors
 
 
 def on_change(payload):
@@ -80,7 +84,7 @@ def on_delete(payload):
 
 
 if __name__ == "__main__":
-    startup()
+    restore_last_state()
 
     URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
     s = realtime_py.connection.Socket(URL)
