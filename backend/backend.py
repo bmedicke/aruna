@@ -21,10 +21,7 @@ def on_update(payload):
     if table == "pixels":
         pixel = payload["record"]
         id = int(pixel["id"])
-        r = int(pixel["red"])
-        g = int(pixel["green"])
-        b = int(pixel["blue"])
-        colors = (r, g, b)
+        colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
 
         if not id in range(num_pixels):
             print(
@@ -40,7 +37,7 @@ def on_update(payload):
                 return
 
         pixels[id] = colors
-        print(f"pixel {id} changed to: {r, g, b}")
+        print(f"pixel {id} changed to: {colors}")
     else:
         print(f'table "{table}" not handled')
 
