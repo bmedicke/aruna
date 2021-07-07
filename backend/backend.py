@@ -3,15 +3,14 @@
 import board
 import neopixel
 import psycopg2
-import realtime_py
+import time
 
-server = "192.168.0.114"
-url = f"ws://{server}:8000"
-key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYwMzk2ODgzNCwiZXhwIjoyNTUwNjUzNjM0LCJyb2xlIjoiYW5vbiJ9.36fUebxgx1mcBo4s19v0SzqmzunP--hm_hep0uLX0ew"
+server = "localhost"
 
 led_pin = board.D18
 num_pixels = 300
 pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=False)
+old_state = list()
 
 
 def id_ok(id):
@@ -33,71 +32,59 @@ def colors_ok(colors):
     return True
 
 
-def restore_last_state():
-    try:
-        conn = psycopg2.connect(
-            host=server,
-            database="postgres",
-            user="postgres",
-            password="postgres",
-        )
-    except psycopg2.OperationalError:
-        print("error: connection failed. skipping restore")
-        return
+def update_leds(cursor):
+    global old_state
 
-    cur = conn.cursor()
+    cursor.execute("select * from pixels")
+    state = cursor.fetchall()
 
-    sql = "select * from pixels order by id"
-    cur.execute(sql)
+    if state != old_state:
+        for pixel in state:
+            id = pixel[0]
+            colors = (pixel[1], pixel[2], pixel[3])
 
-    pixels.auto_write = False
+            if id_ok(id) and colors_ok(colors):
+                pixels[id] = colors
 
-    for pixel in cur.fetchall():
-        id = pixel[0]
-        colors = (pixel[1], pixel[2], pixel[3])
+        pixels.show()
 
-        if id_ok(id) and colors_ok(colors):
-            pixels[id] = colors
-
-    pixels.show()
-    pixels.auto_write = True
+    old_state = state
 
 
-def on_change(payload):
-    pixel = payload["record"]
-    id = int(pixel["id"])
-    colors = (int(pixel["red"]), int(pixel["green"]), int(pixel["blue"]))
-
-    if id_ok(id) and colors_ok(colors):
-        pixels[id] = colors
-        print(f"pixel {id} changed to: {colors}")
-
-
-def on_delete(payload):
-    id = int(payload["old_record"]["id"])
-
-    print(f"pixel {id} deleted, setting to (0, 0, 0)")
-
-    if id_ok(id):
-        pixels[id] = (0, 0, 0)
+def connect():
+    print("connecting")
+    connection = psycopg2.connect(
+        host=server,
+        database="postgres",
+        user="postgres",
+        password="postgres",
+    )
+    return connection
 
 
 def main():
-    restore_last_state()
+    # connection-loop:
+    while True:
+        try:
+            cursor = connect().cursor()
+            print("connected")
+            break
+        except psycopg2.OperationalError:
+            print("error: connection failed. retrying...")
+            time.sleep(2)
+        except Exception as e:
+            print("[connection-loop] unhandled error:", e)
 
-    URL = f"{url}/realtime/v1/websocket?apikey={key}&vsn=1.0.0"
-    s = realtime_py.connection.Socket(URL)
-    s.connect()
-
-    channel = s.set_channel("realtime:public:pixels")
-    channel.join().on("UPDATE", on_change)
-    channel.join().on("INSERT", on_change)
-    channel.join().on("DELETE", on_delete)
-    s.listen()
+    # polling-loop:
+    while True:
+        try:
+            update_leds(cursor)
+            time.sleep(0.5)
+        except Exception as e:
+            print("[update-loop]  unhandled error:", e)
+            break  # back to the connection-loop.
 
 
 if __name__ == "__main__":
-    # keep running to work around uncatchable exceptions of supabase:
     while True:
         main()
-        print("error: connection lost, restarting")
