@@ -6,8 +6,6 @@ LED strip control (with individual LEDs)
 ### setup
 
 ```sh
-cd backend
-
 # install docker:
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh ./get-docker.sh
@@ -83,7 +81,7 @@ EXECUTE FUNCTION notify();
 **listen to changes**
 
 ```sh
-./notifications.py
+./demos/notifications.py
 ```
 
 **change the table**
