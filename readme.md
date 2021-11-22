@@ -31,6 +31,7 @@ pip install adafruit-circuitpython-neopixel
 pip install psycopg[pool] # [binary] version not yet supported for ARM.
 pip install black
 ```
+
 ### running it
 
 ```sh
@@ -40,6 +41,59 @@ docker-compose up -d
 # start backend:
 ./backend.py
 ```
+
+## notifications
+
+<details><summary>how to notify on changes</summary>
+
+**create new demo table**
+
+```sql
+DROP TABLE "demo";
+CREATE TABLE "demo" (
+  "number" integer NOT NULL
+);
+```
+
+**define trigger function**
+
+```sql
+CREATE OR REPLACE FUNCTION notify() RETURNS TRIGGER AS
+$$
+BEGIN
+PERFORM pg_notify('table_changed', 'payload');
+RETURN new;
+END
+$$
+LANGUAGE plpgsql
+```
+
+**attach trigger to table**
+
+```sql
+DROP TRIGGER "notify_update_insert" ON "demo";
+CREATE TRIGGER "notify_update_insert"
+BEFORE
+INSERT OR UPDATE
+ON "demo"
+FOR EACH ROW
+EXECUTE FUNCTION notify();
+```
+
+**listen to changes**
+
+```sh
+./notifications.py
+```
+
+**change the table**
+
+```sql
+INSERT INTO "demo" ("number")
+VALUES ('1');
+```
+
+</details>
 
 ## Power Circuit Diagramm
 
