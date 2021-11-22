@@ -19,7 +19,7 @@ LED strip control (with individual LEDs)
 * [MA Light Schemas](https://www.home-assistant.io/integrations/light.mqtt/)
 	* template: the one tasmota uses
 	* default: no flashing, transitions
-	* **json**: all features
+	* **[json](https://www.home-assistant.io/integrations/light.mqtt/#json-schema)**: all features
 
 ## useful repos
 
