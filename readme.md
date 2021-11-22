@@ -16,6 +16,10 @@ LED strip control (with individual LEDs)
 ## useful links
 
 * [Device Registry](https://developers.home-assistant.io/docs/device_registry_index/)
+* [MA Light Schemas](https://www.home-assistant.io/integrations/light.mqtt/)
+	* template: the one tasmota uses
+	* default: no flashing, transitions
+	* **json**: all features
 
 ## useful repos
 
