@@ -12,6 +12,7 @@ source env/bin/activate
 export CFLAGS=-fcommon
 pip install adafruit-blinka
 pip install adafruit-circuitpython-neopixel
+pip install psycopg2
 ```
 
 ## Power Circuit Diagramm
