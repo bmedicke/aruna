@@ -40,7 +40,7 @@ docker-compose up -d
 ./backend.py
 ```
 
-## notifications
+## PostgreSQL notifications on DB changes
 
 <details><summary>how to notify on changes</summary>
 
