@@ -2,13 +2,10 @@
 
 import board
 import neopixel
-import psycopg2
+import psycopg
 
-connection = psycopg2.connect(
-    host="localhost",
-    database="postgres",
-    user="postgres",
-    password="postgres",
+connection = psycopg.connect(
+    "postgresql://postgres:postgres@localhost/postgres"
 )
 
 sql_query = """
