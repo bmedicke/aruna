@@ -74,7 +74,7 @@ LANGUAGE plpgsql
 DROP TRIGGER "notify_update_insert" ON "demo";
 CREATE TRIGGER "notify_update_insert"
 BEFORE
-INSERT OR UPDATE
+INSERT OR UPDATE OR DELETE
 ON "demo"
 FOR EACH ROW
 EXECUTE FUNCTION notify();
