@@ -1,6 +1,18 @@
 # Aruna
 LED strip control (with individual LEDs)
 
+## backend
+
+### setup
+
+```sh
+python3 -m venv env
+source env/bin/activate
+
+export CFLAGS=-fcommon
+pip install adafruit-blinka
+pip install adafruit-circuitpython-neopixel
+```
 
 ## Power Circuit Diagramm
 
