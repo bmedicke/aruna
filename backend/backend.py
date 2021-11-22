@@ -19,6 +19,5 @@ WHERE table_schema NOT IN ('pg_catalog', 'information_schema');
 
 with psycopg.connect(uri) as connection:
     with connection.cursor() as cursor:
-        cursor.execute(sql_query)
-        for record in cursor.fetchall():
+        for record in cursor.execute(sql_query).fetchall():
             print(record)
