@@ -96,7 +96,7 @@ VALUES ('1');
 **or send on the channel directly**
 
 ```sh
-psql 'dbname=postgres hostaddr=192.168.8.212 user=postgres password=postgres' -c "notify table_changed, 'payload'"
+psql 'postgresql://postgres:postgres@192.168.8.212/postgres' -c "notify table_changed, 'payload'"
 ```
 
 </details>
