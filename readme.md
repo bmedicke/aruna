@@ -66,6 +66,8 @@ $$
 LANGUAGE plpgsql
 ```
 
+* [more info](https://www.postgresql.org/docs/12/plpgsql-overview.html)
+
 **attach trigger to table**
 
 ```sql
@@ -90,8 +92,6 @@ EXECUTE FUNCTION notify();
 INSERT INTO "demo" ("number")
 VALUES ('1');
 ```
-
-* [more info](https://www.postgresql.org/docs/12/plpgsql-overview.html)
 
 **or send on the channel directly**
 
