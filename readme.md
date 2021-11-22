@@ -61,6 +61,7 @@ docker-compose up -d
 		* [demo usage](https://community.home-assistant.io/t/mqtt-add-on-works-but-no-discovery/241680)
 	* [async-notifications with psycopg](https://www.psycopg.org/docs/advanced.html#asynchronous-notifications)
 		* get notified of db-updates
+		* [empty queries and performance impact](https://stackoverflow.com/questions/21117431/how-to-receive-automatic-notifications-about-changes-in-tables)
 
 ## useful repos
 
