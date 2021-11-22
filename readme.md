@@ -93,6 +93,8 @@ INSERT INTO "demo" ("number")
 VALUES ('1');
 ```
 
+* [more info](https://www.postgresql.org/docs/12/plpgsql-overview.html)
+
 </details>
 
 ## Power Circuit Diagramm
