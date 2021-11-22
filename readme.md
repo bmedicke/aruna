@@ -6,6 +6,7 @@ LED strip control (with individual LEDs)
 ### setup
 
 ```sh
+cd backend
 python3 -m venv env
 source env/bin/activate
 
