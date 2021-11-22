@@ -7,6 +7,19 @@ LED strip control (with individual LEDs)
 
 ```sh
 cd backend
+
+# setup docker:
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh ./get-docker.sh
+rm get-docker.sh
+
+# setup docker-compose and postgres:
+apt install docker-compose postgresql -y
+
+# start db and adminer:
+docker-compose up -d
+
+# setup virtual environment:
 python3 -m venv env
 source env/bin/activate
 
@@ -15,9 +28,13 @@ source env/bin/activate
 # to avoid them use the flag:
 export CFLAGS=-fcommon
 
+# setup libs:
 pip install adafruit-blinka
 pip install adafruit-circuitpython-neopixel
 pip install psycopg2
+
+# start backend:
+./backend.py
 ```
 
 ## Power Circuit Diagramm
