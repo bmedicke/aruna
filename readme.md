@@ -95,6 +95,12 @@ VALUES ('1');
 
 * [more info](https://www.postgresql.org/docs/12/plpgsql-overview.html)
 
+**or send on the channel directly**
+
+```sh
+psql 'dbname=postgres hostaddr=192.168.8.212 user=postgres password=postgres' -c "notify table_changed, 'payload'"
+```
+
 </details>
 
 ## Power Circuit Diagramm
