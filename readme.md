@@ -10,7 +10,7 @@ cd backend
 python3 -m venv env
 source env/bin/activate
 
-# on rpi4 you might get error about multiple
+# on rpi4 you might get an error about multiple
 # definitions while installing rpi.gpio,
 # to avoid them use the flag:
 export CFLAGS=-fcommon
