@@ -59,6 +59,8 @@ docker-compose up -d
 	* default: no flashing, transitions
 	* **[json](https://www.home-assistant.io/integrations/light.mqtt/#json-schema)**: all features
 		* [demo usage](https://community.home-assistant.io/t/mqtt-add-on-works-but-no-discovery/241680)
+	* [https://www.psycopg.org/docs/advanced.html#asynchronous-notifications](async-notifications with psycopg)
+		* get notified of db-updates
 
 ## useful repos
 
