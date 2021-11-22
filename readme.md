@@ -29,6 +29,7 @@ export CFLAGS=-fcommon
 pip install adafruit-blinka
 pip install adafruit-circuitpython-neopixel
 pip install psycopg # [binary] version not yet supported for ARM.
+pip install black
 ```
 ### running it
 
