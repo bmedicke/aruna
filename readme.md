@@ -23,11 +23,13 @@ source env/bin/activate
 # to avoid them use the flag:
 export CFLAGS=-fcommon
 
-# install libs:
-pip install adafruit-blinka
-pip install adafruit-circuitpython-neopixel
-pip install psycopg[pool] # [binary] version not yet supported for ARM.
-pip install black
+# upgrade/install libs:
+pip install --upgrade adafruit-blinka
+pip install --upgrade adafruit-circuitpython-neopixel
+pip install --upgrade black
+
+# [binary] version not yet supported for ARM.
+pip install --upgrade 'psycopg[pool]'
 ```
 
 ### running it
