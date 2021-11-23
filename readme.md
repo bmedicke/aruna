@@ -42,67 +42,6 @@ docker-compose up -d
 ./backend.py
 ```
 
-## PostgreSQL notifications on DB changes
-
-<details><summary>how to notify on changes</summary>
-
-**create new demo table**
-
-```sql
-DROP TABLE "demo";
-CREATE TABLE "demo" (
-  "number" integer NOT NULL
-);
-```
-
-**define trigger function**
-
-```sql
-CREATE OR REPLACE FUNCTION notify() RETURNS TRIGGER AS
-$$
-BEGIN
-PERFORM pg_notify('table_changed', 'payload');
-RETURN new;
-END
-$$
-LANGUAGE plpgsql
-```
-
-* [more info](https://www.postgresql.org/docs/12/plpgsql-overview.html)
-
-**attach trigger to table**
-
-```sql
-DROP TRIGGER "notify_update_insert" ON "demo";
-CREATE TRIGGER "notify_update_insert"
-BEFORE
-INSERT OR UPDATE OR DELETE
-ON "demo"
-FOR EACH ROW
-EXECUTE FUNCTION notify();
-```
-
-**listen to changes**
-
-```sh
-./demos/notifications.py
-```
-
-**change the table**
-
-```sql
-INSERT INTO "demo" ("number")
-VALUES ('1');
-```
-
-**or send on the channel directly**
-
-```sh
-psql 'postgresql://postgres:postgres@192.168.8.212/postgres' -c "notify table_changed, 'payload'"
-```
-
-</details>
-
 ## Power Circuit Diagramm
 
 <img src="media/circuit_diagram_LEDs_power.jpg"></img>
@@ -125,6 +64,7 @@ psql 'postgresql://postgres:postgres@192.168.8.212/postgres' -c "notify table_ch
 * [async-notifications with psycopg](https://www.psycopg.org/docs/advanced.html#asynchronous-notifications)
 	* get notified of db-updates
 	* [empty queries and performance impact](https://stackoverflow.com/questions/21117431/how-to-receive-automatic-notifications-about-changes-in-tables)
+* [psycopg writeup](https://github.com/bmedicke/python-notes/blob/main/markdown/psycopg.md)
 
 ## useful repos
 
