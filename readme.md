@@ -1,5 +1,6 @@
 # Aruna
-LED strip control (with individual LEDs)
+
+**Raspberry Pi based LED strip control (with individual LEDs)**
 
 ## backend
 
