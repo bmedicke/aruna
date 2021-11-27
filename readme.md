@@ -2,9 +2,30 @@
 
 **Raspberry Pi based LED strip control (with individual LEDs)**
 
-## backend
+<!-- vim-markdown-toc GFM -->
 
-### setup
+  * [front-to-back.py](#front-to-backpy)
+  * [back-to-hardware.py](#back-to-hardwarepy)
+* [setup](#setup)
+* [running it](#running-it)
+* [supplemental](#supplemental)
+  * [Power Circuit Diagramm](#power-circuit-diagramm)
+  * [Pin Layout](#pin-layout)
+  * [terminology](#terminology)
+  * [useful links](#useful-links)
+  * [useful repos](#useful-repos)
+
+<!-- vim-markdown-toc -->
+
+## front-to-back.py
+
+* connects Home Assistant via MQTT to the database
+
+## back-to-hardware.py
+
+* translates database changes to the physical world
+
+# setup
 
 ```sh
 # install docker:
@@ -36,15 +57,14 @@ pip install --upgrade black
 pip install --upgrade 'psycopg[pool]'
 ```
 
-### running it
+# running it
 
 ```sh
 # start db and adminer:
 docker-compose up -d
-
-# start backend:
-./backend.py
 ```
+
+# supplemental
 
 ## Power Circuit Diagramm
 
