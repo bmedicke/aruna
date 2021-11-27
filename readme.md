@@ -50,6 +50,10 @@ docker-compose up -d
 
 <img src="media/circuit_diagram_LEDs_power.jpg"></img>
 
+## Pin Layout
+
+![image](https://user-images.githubusercontent.com/173962/143683906-a541242c-3bcc-4d4a-ab91-dc928b944fee.png)
+
 ## terminology
 
 * **entity**
