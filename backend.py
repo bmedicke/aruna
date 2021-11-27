@@ -21,3 +21,13 @@ with psycopg.connect(uri) as connection:
     with connection.cursor() as cursor:
         for record in cursor.execute(sql_query).fetchall():
             print(record)
+
+
+
+
+led_pin = board.D18
+num_pixels = 300
+pixels = neopixel.NeoPixel(led_pin, num_pixels, brightness=1, auto_write=True)
+
+for i,_ in enumerate(pixels):
+    pixels[i] = (0,255,0)
