@@ -15,6 +15,9 @@ rm get-docker.sh
 # install docker-compose and postgres:
 apt install docker-compose postgresql -y
 
+# we only need it for the cli tools:
+systemctl disable --now postgresql
+
 # create and activate virtual environment:
 python3 -m venv env
 source env/bin/activate
@@ -46,6 +49,10 @@ docker-compose up -d
 ## Power Circuit Diagramm
 
 <img src="media/circuit_diagram_LEDs_power.jpg"></img>
+
+## Pin Layout
+
+![image](https://user-images.githubusercontent.com/173962/143683906-a541242c-3bcc-4d4a-ab91-dc928b944fee.png)
 
 ## terminology
 
