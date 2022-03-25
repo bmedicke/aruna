@@ -1,3 +1,5 @@
+see https://github.com/bmedicke/smart-mirror
+
 # Aruna
 
 **Raspberry Pi based LED strip control (with individual LEDs)**
