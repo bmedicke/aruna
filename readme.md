@@ -1,4 +1,4 @@
-see https://github.com/bmedicke/smart-mirror
+see https://github.com/bmedicke/smart-mirror for another React project
 
 # Aruna
 
